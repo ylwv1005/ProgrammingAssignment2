@@ -2,6 +2,7 @@
 ## functions do
 
 ## Write a short comment describing this function
+## makeCacheMatrix uses scoping rules and stores matrices in memory
 
 makeCacheMatrix <- function(x = matrix()) {
   inverse <- NULL
@@ -18,6 +19,8 @@ makeCacheMatrix <- function(x = matrix()) {
 
 ## Write a short comment describing this function
 ## Return a matrix that is the inverse of 'x
+## cacheSolve uses corpcor, a library that avoids determinants and uses orthogonal descomposition
+## Will try to load corpcor library and if it's not installed will try to install the library
 
 cacheSolve <- function(x, ...) 
 {
@@ -43,38 +46,3 @@ cacheSolve <- function(x, ...)
   x$setinverse(inverse)
   inverse
 }
-
-
-#Experiment to try if it works
-#square matrix
-x <- matrix(rpois(25,4), nrow = 5)
-cx <- makeCacheMatrix(x)
-cx$get()
-cacheSolve(cx)
-cacheSolve(cx)
-invX <- cacheSolve(cx)
-
-#Experiment to try if it works
-#rectangular matrix rows > cols
-y <- matrix(rpois(18,2), nrow = 4, ncol = 3)
-cy <- makeCacheMatrix(y)
-cy$get()
-cacheSolve(cy)
-cacheSolve(cy)
-invy <- cacheSolve(cy)
-
-#Experiment to try if it works
-#rectangular matrix rows < cols
-z <- matrix(rpois(20,2), nrow = 4, ncol = 5)
-cz <- makeCacheMatrix(z)
-cz$get()
-cacheSolve(cz)
-cacheSolve(cz)
-invz <- cacheSolve(cz)
-
-#Experiment to try if it works
-#multiplication must return identity or closer
-invx %*% x
-x %*% invx
-invy %*% y 
-z %*% invz 
